@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const config = require('./config/key')
-const {User} = require('./models/user');
-
+const config = require('./config/key');
+const { User } = require('./models/user');
+const { auth } = require('./middleware/auth');
 
 mongoose.connect(config.mongoURI,
 {useNewUrlParser: true}).then(() => console.log('DB connected'))
@@ -17,7 +17,20 @@ app.use(bodyParser.urlencoded({ extended : true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.post('/api/users/register', (req, res) => {
+
+app.get("/api/user/auth", auth, (req, res) => {
+    res.status(200).json({
+        _id: req._id,
+        isAuth: true,
+        email: req.user.email,
+        name: req.user.name,
+        lastname: req.user.lastname,
+        role: req.user.role
+    })
+
+})
+
+app.post('/api/users/register', auth, (req, res) => {
 
     const user = new User(req.body);
     user.save((err, doc) => {
