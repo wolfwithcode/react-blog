@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { response } from 'express';
+import { loginUser } from '../../actions/user_actions';
 
 class RegisterLogin extends Component {
 
@@ -8,13 +11,40 @@ class RegisterLogin extends Component {
         errors: []
     };
 
+
+    displayErrors = errors => 
+        errors.map((error, i) => <p key={i}>{errors}</p>)
+
     handleChange = event => {
         this.setState( { [event.target.name]: event.target.value })
     }
 
     submitForm = event => {
+        event.preventDefault();
 
-    }
+        let dataToSubmit = {
+            email: this.state.email,
+            password: this.state.password
+        };
+
+        if(this.isFormvalid(this.state)){
+            this.setState({errors: []})
+                this.props.dispatch(loginUser(dataToSubmit))
+                .then(response => { 
+                        this.setState({
+                            errors: this.state.errors.concat(
+                                "Failed to login, you can check your email and password"
+                            )
+                        })
+                    });
+        } else {
+            this.setState({
+                errors: this.state.errors.concat('Form is not valid')
+            })
+        }
+    } 
+
+    isFormvalid = ({ email, password }) => email && password;
 
     render() {
         return (
@@ -40,6 +70,13 @@ class RegisterLogin extends Component {
                                     />
                                 </div>
                         </div>
+
+
+                        {this.state.errors.length > 0 && (
+                            <div>
+                                {this.displayErrors(this.state.errors)}
+                            </div>
+                        )}
 
                         <div className="row">
                             <div className="input-field col s12">
@@ -81,4 +118,10 @@ class RegisterLogin extends Component {
     }
 }
 
-export default RegisterLogin;
+function mapStateToProps(state){
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(RegisterLogin);
