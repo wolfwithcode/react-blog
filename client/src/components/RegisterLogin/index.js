@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { response } from 'express';
 import { loginUser } from '../../actions/user_actions';
+import { Link } from 'react-router-dom';
 
 class RegisterLogin extends Component {
 
@@ -98,17 +99,26 @@ class RegisterLogin extends Component {
                         </div>
 
                         <div className="row">
-                            <div className="col 12">
+                            <div className="col s12">
                                 <button 
                                     className="btn waves-effect red lighten-2"
                                     type="submit"
                                     name="action"
                                     onClick={this.submitForm}
-                                >Login
-                                </button>
-                            </div>
+                                >
+                                    Login
+                                </button>&nbsp; &nbsp;
+                                <Link to="/register">
+                                    <button 
+                                        className="btn waves-effect red lighten-2"
+                                        type="submit"
+                                        name="action"
+                                    >
+                                        Sign Up
+                                    </button>
+                                </Link>
+                            </div>                            
                         </div>
-
                     </form>
 
                     
