@@ -5,13 +5,15 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from "react-router-dom";
 
+import "materialize-css/dist/css/materialize.min.css"
+
 import { Provider } from "react-redux";
-import { createStore, applyMiddware } from "redux";
+import { createStore, applyMiddleware } from 'redux';
 import promiseMiddleware from "redux-promise";
 import ReduxThunk from "redux-thunk";
 import Reducer from "./reducers";
 
-const createStoreWithMiddleware = applyMiddware(promiseMiddleware, ReduxThunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 
 ReactDOM.render(
 
