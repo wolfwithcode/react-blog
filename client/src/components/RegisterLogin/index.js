@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
 
 class RegisterLogin extends Component {
+
+    state = {
+        email: "",
+        password: "",
+        errors: []
+    };
+
+    handleChange = event => {
+        this.setState( { [event.target.name]: event.target.value })
+    }
+
+    submitForm = event => {
+
+    }
+
     render() {
         return (
             <div className="container">
                 <h2> Login </h2>
                 <div className="row">
-                    {/* <form className="col s12" onSubmit={ event => this.submitForm(event)}>                      */}
-                    <form className="col s12" >                     
+                    <form className="col s12" onSubmit={ event => this.submitForm(event)}>                     
                         <div className="row">
                                 <div className="input-field col s12">
                                     <input 
                                         name="email"
-                                        // value={this.state.email}
-                                        // onChange={e => this.handleChange(e)}
+                                        value={this.state.email}
+                                        onChange={e => this.handleChange(e)}
                                         id="email"
                                         type="email"
                                         className="validate"
@@ -31,13 +45,13 @@ class RegisterLogin extends Component {
                             <div className="input-field col s12">
                                     <input 
                                         name="password"
-                                        // value={this.state.email}
-                                        // onChange={e => this.handleChange(e)}
+                                        value={this.state.password}
+                                        onChange={e => this.handleChange(e)}
                                         id="password"
                                         type="password"
                                         className="validate"
                                     />
-                                    <label htmlFor="email">Password</label>
+                                   <label htmlFor="password">Password</label>
                                     <span 
                                         className="helper-text"
                                         data-error="Wrong password"
@@ -52,7 +66,7 @@ class RegisterLogin extends Component {
                                     className="btn waves-effect red lighten-2"
                                     type="submit"
                                     name="action"
-                                    // onClick={this.submitForm}
+                                    onClick={this.submitForm}
                                 >Login
                                 </button>
                             </div>
