@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { response } from 'express';
 import { loginUser, registerUser } from '../../actions/user_actions';
 import { Link } from 'react-router-dom';
 import { register } from '../../serviceWorker';

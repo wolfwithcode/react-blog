@@ -4,7 +4,6 @@ import {
     LOGIN_USER,
     REGISTER_USER
 } from './types';
-import { response } from 'express';
 
 export function loginUser(dataToSubmit){
     const request = axios.post('/api/users/login', dataToSubmit)

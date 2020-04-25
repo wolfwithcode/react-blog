@@ -1,7 +1,6 @@
  import React, { Component } from 'react';
 import { register } from '../../serviceWorker';
 import { registerUser } from '../../actions/user_actions'
-import { response } from 'express';
 import { connect } from 'react-redux';
 import RegisterLogin from '.';
 
@@ -71,7 +70,7 @@ import RegisterLogin from '.';
         }
 
         if(this.isFormValid()){
-            this.setState({errors: []});   
+            this.setState({ errors: [] });   
             this.props.dispatch(registerUser(dataToSubmit))
             .then(response => {
                 if(response.payload.success){
@@ -85,7 +84,7 @@ import RegisterLogin from '.';
             .catch(err => {
                 this.setState({
                     errors: this.state.errors.concat(err)
-                })
+                });
             })
         } else {
             console.error("Form is not valid");
