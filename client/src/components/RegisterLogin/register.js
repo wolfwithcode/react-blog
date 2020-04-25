@@ -4,7 +4,6 @@ import { registerUser } from '../../actions/user_actions'
 import { response } from 'express';
 import { connect } from 'react-redux';
 import RegisterLogin from '.';
-import { connect } from 'react-redux'
 
 
  class Register extends Component {
@@ -19,7 +18,7 @@ import { connect } from 'react-redux'
     };
 
     handleChange = event => {
-        this.setState( {[event.target.name] : event.target.value})
+        this.setState( { [event.target.name] : event.target.value })
     }
 
     displayErrors = errors => 
@@ -31,7 +30,7 @@ import { connect } from 'react-redux'
 
         if(this.isFormEmpty(this.state)){
             error = { message: "Fill in all fields"};
-            this.setState({ errors: errors.concat(errors) });
+            this.setState({ errors: errors.concat(error) });
         } else if (!this.isPasswordValid(this.state)){
             error = { message: "Password is invalid"};
             this.setState({ errors: errors.concat(error)});
@@ -57,7 +56,6 @@ import { connect } from 'react-redux'
             !email.length ||
             !password.length ||
             !passwordConfirmation.length 
-
         );
     }
 
@@ -69,11 +67,11 @@ import { connect } from 'react-redux'
             name: this.state.name,
             lastname: this.state.lastname,
             password: this.state.password,
-            passwordConfirmation: this.passwordConfirmation
+            passwordConfirmation: this.state.passwordConfirmation
         }
 
         if(this.isFormValid()){
-            this.setState({errors: []})
+            this.setState({errors: []});   
             this.props.dispatch(registerUser(dataToSubmit))
             .then(response => {
                 if(response.payload.success){
@@ -141,6 +139,26 @@ import { connect } from 'react-redux'
                     <div className="row">
                         <div className="input-field col s12">
                                 <input 
+                                    name="name"
+                                    value={this.state.email}
+                                    onChange={e => this.handleChange(e)}
+                                    id="name"
+                                    type="email"
+                                    className="validate"
+                                />
+                               <label className="active" htmlFor="email">Email</label>
+                                <span 
+                                    className="helper-text"
+                                    data-error="Wrong Email"
+                                    data-success="right"
+                                />
+                        </div>
+                    </div>
+
+
+                    <div className="row">
+                        <div className="input-field col s12">
+                                <input 
                                     name="password"
                                     value={this.state.password}
                                     onChange={e => this.handleChange(e)}
@@ -188,5 +206,5 @@ import { connect } from 'react-redux'
  }
  
 
-export default Register;
+// export default Register;
 export default connect()(Register);
