@@ -21,7 +21,7 @@ import RegisterLogin from '.';
     }
 
     displayErrors = errors => 
-        errors.map((error, i) => <p key={i}>{error}</p>)
+        errors.map((error, i) => <p key={i} > {error.message} </p>)
 
     isFormValid = () => {
         let errors = [];
@@ -36,6 +36,7 @@ import RegisterLogin from '.';
         } else {
             return true;
         }
+        console.log(" isFormValid " + this.state.errors);
     }
 
     isPasswordValid = ({ password, passwordConfirmation }) => {
@@ -68,7 +69,7 @@ import RegisterLogin from '.';
             password: this.state.password,
             passwordConfirmation: this.state.passwordConfirmation
         }
-
+        console.log(dataToSubmit);
         if(this.isFormValid()){
             this.setState({ errors: [] });   
             this.props.dispatch(registerUser(dataToSubmit))
@@ -80,6 +81,7 @@ import RegisterLogin from '.';
                         errors: this.state.errors.concat("Your attempt to send data to DB was failed")
                     })
                 }
+                // console.log(response);
             })
             .catch(err => {
                 this.setState({
@@ -107,7 +109,7 @@ import RegisterLogin from '.';
                                     type="text"
                                     className="validate"
                                 />
-                                <label className="active" htmlFor="email">lastname</label>
+                                <label className="active" htmlFor="lastname">lastname</label>
                                 <span 
                                     className="helper-text"
                                     data-error="Type a right type email"
@@ -115,6 +117,8 @@ import RegisterLogin from '.';
                                 />
                             </div>
                     </div>
+
+                                     
 
                     <div className="row">
                         <div className="input-field col s12">
@@ -126,10 +130,10 @@ import RegisterLogin from '.';
                                     type="text"
                                     className="validate"
                                 />
-                               <label className="active" htmlFor="password">name</label>
+                               <label className="active" htmlFor="name">name</label>
                                 <span 
                                     className="helper-text"
-                                    data-error="Wrong password"
+                                    data-error="Wrong name"
                                     data-success="right"
                                 />
                         </div>
@@ -138,10 +142,10 @@ import RegisterLogin from '.';
                     <div className="row">
                         <div className="input-field col s12">
                                 <input 
-                                    name="name"
+                                    name="email"
                                     value={this.state.email}
                                     onChange={e => this.handleChange(e)}
-                                    id="name"
+                                    id="email"
                                     type="email"
                                     className="validate"
                                 />
@@ -173,17 +177,23 @@ import RegisterLogin from '.';
                     <div className="row">
                         <div className="input-field col s12">
                                 <input 
-                                    name="password"
+                                    name="passwordConfirmation"
                                     value={this.state.passwordConfirmation}
                                     onChange={e => this.handleChange(e)}
-                                    id="password"
+                                    id="passwordConfirmation"
                                     type="password"
                                     className="validate"
                                 />
-                               <label className="active" htmlFor="password">Password Confirmation</label>
+                               <label className="active" htmlFor="passwordConfirmation">Password Confirmation</label>
                                
                         </div>
                     </div>
+
+                    {this.state.errors.length > 0 && (
+                            <div>
+                                {this.displayErrors(this.state.errors)}
+                            </div>
+                    )}    
 
                     <div className="row">
                         <div className="col s12">

@@ -34,7 +34,7 @@ app.get("/api/users/auth", auth, (req, res) => {
 
 })
 
-app.post('/api/users/register', auth, (req, res) => {
+app.post('/api/users/register', (req, res) => {
 
     const user = new User(req.body);
     user.save((err, doc) => {
